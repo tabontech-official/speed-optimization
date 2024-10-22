@@ -8,6 +8,10 @@ const SHOPIFY_API_SECRET = process.env.SHOPIFY_API_SECRET;
 router.get('/callback', async (req, res) => {
     const { shop, code } = req.query;
 
+    if (!shop || !code) {
+        return res.status(400).send('Missing shop or code parameter.');
+    }
+
     const tokenUrl = `https://${shop}/admin/oauth/access_token`;
     const params = {
         client_id: SHOPIFY_API_KEY,
@@ -18,8 +22,13 @@ router.get('/callback', async (req, res) => {
     try {
         const response = await axios.post(tokenUrl, params);
         const accessToken = response.data.access_token;
-        res.redirect(`/dashboard?accessToken=${accessToken}`); // Or handle it as you need
+
+        // Optionally store the access token securely (e.g., database or session)
+        
+        // Redirect to the welcome page
+        res.redirect('/');
     } catch (error) {
+        console.error('Error retrieving access token:', error);
         res.status(500).send('Error retrieving access token.');
     }
 });
