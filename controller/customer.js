@@ -1,0 +1,74 @@
+import { CustomerDataRequest } from "../model/customer.js";
+import { CustomerDataErasure } from "../model/CustomerData.js";
+import { ShopDataErasure } from "../model/shop.js";
+
+
+export const customerDataRequest=async(req,res)=>{
+    const { customerId } = req.body;
+
+    try {
+      const request = new CustomerDataRequest({ customerId });
+      await request.save();
+  
+      // Fetch the customer data and process it
+      const customerData = await customerDataRequest.findOne(customerId); // Implement this function based on your data source
+  
+      // Update the request status and data
+      request.data = customerData;
+      request.status = 'completed';
+      await request.save();
+  
+      // Respond with the customer data (if required)
+      res.json(customerData);
+    } catch (error) {
+      console.error('Error handling customer data request:', error);
+      res.sendStatus(500); // Internal Server Error
+    }
+}
+
+
+
+export const customerDataDelete=async(req,res)=>{
+    const { customerId } = req.body;
+
+    try {
+      // Store the erasure request in the database
+      const erasureRequest = new CustomerDataErasure({ customerId });
+      await erasureRequest.save();
+  
+      // Implement your logic to delete customer data
+      await CustomerDataErasure.deleteOne(customerId); // Implement this function based on your data source
+  
+      // Update the request status
+      erasureRequest.status = 'completed';
+      await erasureRequest.save();
+  
+      res.sendStatus(200); // OK
+    } catch (error) {
+      console.error('Error handling customer data deletion:', error);
+      res.sendStatus(500); // Internal Server Error
+    }
+}
+
+
+export const NewShopData=async(req,res)=>{
+    const { shopId } = req.body;
+
+  try {
+    // Store the erasure request in the database
+    const shopErasureRequest = new ShopDataErasure({ shopId });
+    await shopErasureRequest.save();
+
+    // Implement your logic to delete shop data
+    await shopErasureRequest.deleteOne(shopId); // Implement this function based on your data source
+
+    // Update the request status
+    shopErasureRequest.status = 'completed';
+    await shopErasureRequest.save();
+
+    res.sendStatus(200); // OK
+  } catch (error) {
+    console.error('Error handling shop data deletion:', error);
+    res.sendStatus(500); // Internal Server Error
+  }
+}
