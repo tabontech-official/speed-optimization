@@ -7,7 +7,7 @@ router.get('/auth', (req, res) => {
     if (!shop) return res.status(400).send('Missing shop parameter.');
 
     const redirectUri = `https://${req.headers.host}/api/callback`;
-    const installUrl = `https://${shop}/admin/oauth/authorize?client_id=${process.env.SHOPIFY_API_KEY}&scope=read_products,write_products&redirect_uri=${redirectUri}`;
+    const installUrl = `https://${shop}/admin/oauth/authorize?client_id=${process.env.SHOPIFY_API_KEY}&scope=read_products,write_themes,write_pages,write_content&redirect_uri=${redirectUri}`;
     res.redirect(installUrl);
 });
 
