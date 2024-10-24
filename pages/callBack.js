@@ -25,13 +25,12 @@ router.get('/callback', async (req, res) => {
         const accessToken = response.data.access_token;
 
         // Optionally store the access token securely (e.g., database or session)
-        const shopData = new Shop({
-            shopId:shopId,
-            shopName: shop,
-            accessToken: accessToken,
-            installedAt: new Date()
-        });
-        await shopData.save();
+        // const shopData = new Shop({
+        //     shopName: shop,
+        //     accessToken: accessToken,
+        //     installedAt: new Date()
+        // });
+        // await shopData.save();
         // Redirect to the welcome page
         res.redirect('/');
     } catch (error) {
