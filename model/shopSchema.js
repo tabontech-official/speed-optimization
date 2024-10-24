@@ -1,22 +1,12 @@
 import mongoose from "mongoose";
 // Define the schema for storing Shopify shop data
 const shopSchema = new mongoose.Schema({
-    shopName: {
-        type: String,
-        required: true,
-        unique: true // Ensure each shop is unique in the database
-    },
-    accessToken: {
-        type: String,
-        required: true // Access token is required for API calls
-    },
-    installedAt: {
-        type: Date,
-        default: Date.now // Automatically set the installation date
-    },
-    shopId:{
-        type:String
-    }
+    shopId: Number,
+    shopDomain: String,
+    accessToken: String,
+    installedAt: Date,
+    shopName: String, // Optional: store the shop's name
+    email: String, // Optional: store the shop owner's email
     // Add any other fields you might need
     // e.g., shop domain, email, etc.
 });
