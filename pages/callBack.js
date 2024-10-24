@@ -1,5 +1,6 @@
 import express from 'express';
 import axios from 'axios';
+import { Shop } from '../model/shopSchema';
 
 const router = express.Router();
 const SHOPIFY_API_KEY = process.env.SHOPIFY_API_KEY;
@@ -24,7 +25,13 @@ router.get('/callback', async (req, res) => {
         const accessToken = response.data.access_token;
 
         // Optionally store the access token securely (e.g., database or session)
-        
+        const shopData = new Shop({
+            shopName: shop,
+            accessToken: accessToken,
+            installedAt: new Date()
+        });
+        await shopData.save();
+        res.status(200).send('Shop successfully installed and data saved.');
         // Redirect to the welcome page
         res.redirect('/');
     } catch (error) {
