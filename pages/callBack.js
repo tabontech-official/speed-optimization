@@ -26,7 +26,7 @@ router.get('/callback', async (req, res) => {
         // Optionally store the access token securely (e.g., database or session)
         
         // Redirect to the welcome page
-        res.redirect('/');
+        res.redirect('https://www.medspatrader.com/');
     } catch (error) {
         console.error('Error retrieving access token:', error);
         res.status(500).send('Error retrieving access token.');

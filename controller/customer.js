@@ -26,8 +26,6 @@ export const customerDataRequest=async(req,res)=>{
     }
 }
 
-
-
 export const customerDataDelete=async(req,res)=>{
     const { customerId } = req.body;
 
@@ -72,3 +70,52 @@ export const NewShopData=async(req,res)=>{
     res.sendStatus(500); // Internal Server Error
   }
 }
+
+
+const registerWebhooks = async (shop, accessToken) => {
+  const webhookData = [
+    {
+      topic: 'customers/data_request',
+      address: 'https://your-app-url.com/customer-data-request',
+      format: 'json',
+    },
+    {
+      topic: 'customers/redact',
+      address: 'https://your-app-url.com/customer-data-delete',
+      format: 'json',
+    },
+    {
+      topic: 'shop/redact',
+      address: 'https://your-app-url.com/new-shop-data',
+      format: 'json',
+    },
+  ];
+
+  try {
+    const promises = webhookData.map((webhook) => {
+      return axios.post(
+        `https://${shop}/admin/api/2023-04/webhooks.json`,
+        {
+          webhook: {
+            topic: webhook.topic,
+            address: webhook.address,
+            format: webhook.format,
+          },
+        },
+        {
+          headers: {
+            'X-Shopify-Access-Token': accessToken,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+    });
+
+    await Promise.all(promises);
+    console.log('Webhooks registered successfully');
+  } catch (error) {
+    console.error('Error registering webhooks:', error);
+  }
+};
+
+ 
