@@ -48,7 +48,7 @@ router.get('/callback', async (req, res) => {
       await shopData.save(); // Save shop data to MongoDB
   
       // Redirect to your app's dashboard or welcome page
-      res.redirect('/welcome'); // Customize this path
+      res.redirect('/https://admin.shopify.com/store/sonipracticestore/apps/app-1386/InsightReports'); // Customize this path
   
     } catch (error) {
       console.error('Error retrieving access token or shop details:', error);
