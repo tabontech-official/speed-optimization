@@ -14,6 +14,9 @@ const shopSchema = new mongoose.Schema({
         type: Date,
         default: Date.now // Automatically set the installation date
     },
+    shopId:{
+        type:String
+    }
     // Add any other fields you might need
     // e.g., shop domain, email, etc.
 });
