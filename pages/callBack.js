@@ -31,7 +31,6 @@ router.get('/callback', async (req, res) => {
             installedAt: new Date()
         });
         await shopData.save();
-        res.status(200).send('Shop successfully installed and data saved.');
         // Redirect to the welcome page
         res.redirect('/');
     } catch (error) {
