@@ -25,7 +25,7 @@ router.get('/callback', async (req, res) => {
         const accessToken = response.data.access_token;
 
       
-        res.redirect('https://medspa-frntend.vercel.app');
+        res.redirect('http://localhost:3000');
     } catch (error) {
         console.error('Error retrieving access token:', error);
         res.status(500).send('Error retrieving access token.');
