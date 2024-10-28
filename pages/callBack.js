@@ -27,6 +27,7 @@ router.get('/callback', async (req, res) => {
         // Optionally store the access token securely (e.g., database or session)
         const shopData = new Shop({
             shopName: shop,
+            accessToken,
             // accessToken: accessToken,
             installedAt: new Date()
         });
