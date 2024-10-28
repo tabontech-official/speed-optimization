@@ -25,7 +25,7 @@ router.get('/callback', async (req, res) => {
         const accessToken = response.data.access_token;
 
       
-        res.redirect('http://localhost:3000');
+        res.redirect('https://speed-test-tau.vercel.app');
     } catch (error) {
         console.error('Error retrieving access token:', error);
         res.status(500).send('Error retrieving access token.');
