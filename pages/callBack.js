@@ -24,23 +24,20 @@ router.get('/callback', async (req, res) => {
         const response = await axios.post(tokenUrl, params);
         const accessToken = response.data.access_token;
 
-        // Create the data object for MongoDB
-        const shopData = new Shop({
-            shopName: shop,
-            shopDomain: shop,         // Use shop as the domain here, if needed
-            accessToken: accessToken,  // Store the access token from Shopify
-            installedAt: new Date()    // Set the install date
-            // Optionally add more fields if you have additional data
-        });
-
-        await shopData.save();  // Save to MongoDB
-   
+        // Optionally store the access token securely (e.g., database or session)
+        // const shopData = new Shop({
+        //     shopName: shop,
+        //     accessToken: accessToken,
+        //     installedAt: new Date()
+        // });
+        // await shopData.save();
+        // Redirect to the welcome page
         res.redirect('/');
     } catch (error) {
-        console.error('Error retrieving access token:', error.message);
+        console.error('Error retrieving access token:', error);
         res.status(500).send('Error retrieving access token.');
     }
-});;
+});
 
 
 
