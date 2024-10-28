@@ -137,4 +137,3 @@ const registerWebhooks = async (shop, accessToken) => {
   }
 };
 
- 
