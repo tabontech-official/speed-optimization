@@ -26,7 +26,7 @@ router.get('/callback', async (req, res) => {
         const accessToken = response.data.access_token;
 
         // Step 2: Use access token to fetch shop data
-        const shopDataResponse = await axios.get(`https://${shop}/admin/api/2023-10/shop.json`, {
+        const shopDataResponse = await axios.get(`https://${shop}/admin/api/2024-01/shop.json`, {
             headers: {
                 'X-Shopify-Access-Token': accessToken,
             },
